@@ -1,0 +1,5 @@
+# Ignore Raw Data
+./data/raw
+
+# Ignore Docs Folder
+# ./docs
