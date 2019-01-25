@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 RAW_PATH = './data/raw'
 PATH = './data'
-DEST_PATH = './data/processed'
+DEST_PATH = './data/interim'
 
 
 def sort_images(folder_path):
