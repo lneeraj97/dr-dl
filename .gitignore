@@ -2,6 +2,6 @@
 ./data
 ./data/raw
 ./data/processed
-
+*.tif
 # Ignore Docs Folder
 # ./docs
