@@ -1,5 +1,7 @@
 # Ignore Raw Data
+./data
 ./data/raw
 ./data/processed
+
 # Ignore Docs Folder
 # ./docs
