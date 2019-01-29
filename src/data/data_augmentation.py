@@ -4,9 +4,9 @@ import imutils
 import numpy as np
 from tqdm import tqdm
 # PATH = './data/interim'
-TRAIN = './data/processed/train'
-TEST = './data/processed/test'
-VALIDATION = './data/processed/validation'
+TRAIN = './data/interim/train'
+TEST = './data/interim/test'
+VALIDATE = './data/interim/validate'
 
 
 def get_save_path(image_path, modifier):
@@ -89,9 +89,9 @@ def augment_dataset(PATH):
         # print(folder)
 
 
-augment_dataset(TRAIN)
-augment_dataset(VALIDATION)
-augment_dataset(TEST)
+# augment_dataset(TRAIN)
+# augment_dataset(VALIDATE)
+# augment_dataset(TEST)
 
 # process_folder(PATH)
 # rotate_image(IMAGE_PATH, 1)

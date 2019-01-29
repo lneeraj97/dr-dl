@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/home/neeraj/miniconda3/envs/dl/bin/python"
+    "python.pythonPath": "/home/neeraj/miniconda3/envs/dl/bin/python",
+    "path-intellisense.showHiddenFiles": true
 }
