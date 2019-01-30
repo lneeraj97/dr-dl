@@ -24,7 +24,7 @@ def preprocess_image(image_path):
     # Open the image
     original_image = cv.imread(image_path, 1)
     # Resize image to 256x256
-    original_image = cv.resize(original_image, (512, 512))
+    original_image = cv.resize(original_image, (224, 224))
     # Extract green channel from the image
     # NOTE: OPENCV USES BGR COLOR ORDER
     image = original_image[:, :, 1]

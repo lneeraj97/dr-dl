@@ -10,19 +10,38 @@ def create_model():
     model = Sequential()
 
     # First conv layer
-    model.add(Conv2D(32, (3, 3), input_shape=(
-        512, 512, 3), activation='relu', use_bias=True))
-    # First pool layer
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(64, (3, 3), input_shape=(
+        224, 224, 3), activation='relu', use_bias=True, strides=1, padding='valid'))
+
     # Second conv layer
-    model.add(Conv2D(32, (3, 3), activation='relu'))
+    model.add(Conv2D(64, (3, 3)), activation='relu',
+              strides=1, use_bias=True, padding='valid')
+    # First pool layer
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
+    # Third conv layer
+    model.add(Conv2D(128, (3, 3)), activation='relu',
+              strides=1, use_bias=True, padding='valid')
+    # Fourth conv layer
+    model.add(Conv2D(128, (3, 3)), activation='relu',
+              strides=1, use_bias=True, padding='valid')
     # Second pool layer
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
+    # Fifth conv layer
+    model.add(Conv2D(256, (3, 3)), activation='relu',
+              strides=1, use_bias=True, padding='valid')
+    # Third pool layer
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
+    # Sixth conv layer
+    model.add(Conv2D(256, (3, 3)), activation='relu',
+              strides=1, use_bias=True, padding='valid')
+    # Fourth pool layer
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
 
     # Flattening
     model.add(Flatten())
 
     # FC layers
+    model.add(Dense(units=2048, activation='relu'))
     model.add(Dense(units=512, activation='relu'))
     model.add(Dense(units=4, activation='sigmoid'))
 
@@ -37,12 +56,12 @@ def init_model(model):
 
 def train_model(model):
     train_datagen = ImageDataGenerator(
-        rescale=1./255, shear_range=0.2, zoom_range=0.2, horizontal_flip=False)
+        rescale=1./255, shear_range=0.2, zoom_range=0.2, horizontal_flip=True)
     test_datagen = ImageDataGenerator(rescale=1./255)
     train_set = train_datagen.flow_from_directory(
-        TRAIN, target_size=(512, 512), batch_size=4, class_mode='categorical')
+        TRAIN, target_size=(224, 224), batch_size=4, class_mode='categorical')
     test_set = test_datagen.flow_from_directory(
-        TEST, target_size=(512, 512), batch_size=4, class_mode='categorical')
+        TEST, target_size=(224, 224), batch_size=4, class_mode='categorical')
     model.fit_generator(train_set, steps_per_epoch=120,
                         epochs=5, validation_steps=2000, validation_data=test_set)
 
