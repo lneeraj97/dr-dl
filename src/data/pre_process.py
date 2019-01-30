@@ -6,7 +6,6 @@ from tqdm import tqdm
 
 TRAIN = './data/interim/train'
 TEST = './data/interim/test'
-VALIDATE = './data/interim/validate'
 PROCESSED = 'processed'
 # dr3 = 'data/interim/validate/3/20051019_38557_0100_PP_180.0.tif'
 # dr0 = 'data/interim/validate/0/20051020_43808_0100_PP_vhflip.tif'
@@ -25,7 +24,7 @@ def preprocess_image(image_path):
     # Open the image
     original_image = cv.imread(image_path, 1)
     # Resize image to 256x256
-    original_image = cv.resize(original_image, (256, 256))
+    original_image = cv.resize(original_image, (512, 512))
     # Extract green channel from the image
     # NOTE: OPENCV USES BGR COLOR ORDER
     image = original_image[:, :, 1]
@@ -57,7 +56,6 @@ def start_preprocessing(PATH):
 
 
 start_preprocessing(TRAIN)
-start_preprocessing(VALIDATE)
 start_preprocessing(TEST)
 # preprocess_image(dr3)
 # preprocess_image(dr0)

@@ -10,8 +10,8 @@
                     "trainable": true,
                     "batch_input_shape": [
                         null,
-                        256,
-                        256,
+                        512,
+                        512,
                         3
                     ],
                     "dtype": "float32",
@@ -141,7 +141,7 @@
                 "config": {
                     "name": "dense_1",
                     "trainable": true,
-                    "units": 256,
+                    "units": 512,
                     "activation": "relu",
                     "use_bias": true,
                     "kernel_initializer": {

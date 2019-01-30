@@ -11,7 +11,7 @@ def create_model():
 
     # First conv layer
     model.add(Conv2D(32, (3, 3), input_shape=(
-        256, 256, 3), activation='relu', use_bias=True))
+        512, 512, 3), activation='relu', use_bias=True))
     # First pool layer
     model.add(MaxPooling2D(pool_size=(2, 2)))
     # Second conv layer
@@ -23,7 +23,7 @@ def create_model():
     model.add(Flatten())
 
     # FC layers
-    model.add(Dense(units=256, activation='relu'))
+    model.add(Dense(units=512, activation='relu'))
     model.add(Dense(units=4, activation='sigmoid'))
 
     return model
@@ -40,9 +40,9 @@ def train_model(model):
         rescale=1./255, shear_range=0.2, zoom_range=0.2, horizontal_flip=False)
     test_datagen = ImageDataGenerator(rescale=1./255)
     train_set = train_datagen.flow_from_directory(
-        TRAIN, target_size=(256, 256), batch_size=4, class_mode='categorical')
+        TRAIN, target_size=(512, 512), batch_size=4, class_mode='categorical')
     test_set = test_datagen.flow_from_directory(
-        TEST, target_size=(256, 256), batch_size=4, class_mode='categorical')
+        TEST, target_size=(512, 512), batch_size=4, class_mode='categorical')
     model.fit_generator(train_set, steps_per_epoch=120,
                         epochs=5, validation_steps=2000, validation_data=test_set)
 
