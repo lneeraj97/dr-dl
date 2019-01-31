@@ -3,10 +3,9 @@ import os
 import imutils
 import numpy as np
 from tqdm import tqdm
-# PATH = './data/interim'
+
 TRAIN = './data/interim/train'
 TEST = './data/interim/test'
-VALIDATE = './data/interim/validate'
 
 
 def get_save_path(image_path, modifier):
@@ -90,12 +89,4 @@ def augment_dataset(PATH):
 
 
 # augment_dataset(TRAIN)
-# augment_dataset(VALIDATE)
 # augment_dataset(TEST)
-
-# process_folder(PATH)
-# rotate_image(IMAGE_PATH, 1)
-# horizontal_flip(IMAGE_PATH)
-# vertical_flip(IMAGE_PATH)
-# vertical_horizontal_flip(IMAGE_PATH)
-# data_augmentation(IMAGE_PATH)
