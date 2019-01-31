@@ -23,29 +23,29 @@ def create_model():
 
     # First conv layer
     model.add(Conv2D(64, KERNEL_SIZE, input_shape=INPUT_SHAPE,
-                     activation='relu', use_bias=True, strides=1, padding='valid'))
+                     activation='relu', use_bias=True, strides=1, padding='same'))
 
     # Second conv layer
     model.add(Conv2D(64, KERNEL_SIZE, activation='relu',
-                     strides=1, use_bias=True, padding='valid'))
+                     strides=1, use_bias=True, padding='same'))
     # First pool layer
     model.add(MaxPooling2D(pool_size=POOL_SIZE, strides=2))
     # Third conv layer
     model.add(Conv2D(128, KERNEL_SIZE, activation='relu',
-                     strides=1, use_bias=True, padding='valid'))
+                     strides=1, use_bias=True, padding='same'))
     # Fourth conv layer
     model.add(Conv2D(128, KERNEL_SIZE, activation='relu',
-                     strides=1, use_bias=True, padding='valid'))
+                     strides=1, use_bias=True, padding='same'))
     # Second pool layer
     model.add(MaxPooling2D(pool_size=POOL_SIZE, strides=2))
     # Fifth conv layer
     model.add(Conv2D(256, KERNEL_SIZE, activation='relu',
-                     strides=1, use_bias=True, padding='valid'))
+                     strides=1, use_bias=True, padding='same'))
     # Third pool layer
     model.add(MaxPooling2D(pool_size=POOL_SIZE, strides=2))
     # Sixth conv layer
     model.add(Conv2D(256, KERNEL_SIZE, activation='relu',
-                     strides=1, use_bias=True, padding='valid'))
+                     strides=1, use_bias=True, padding='same'))
     # Fourth pool layer
     model.add(MaxPooling2D(pool_size=POOL_SIZE, strides=2))
 
