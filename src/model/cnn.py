@@ -1,9 +1,13 @@
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
+
+
 TRAIN = 'data/processed/train'
 TEST = 'data/processed/test'
-EPOCHS = 20
+JSON_FILE = './model/model.json'
+HDF5_FILE = './model/model.h5'
+EPOCHS = 30
 BATCH_SIZE = 32
 STEPS_PER_EPOCH = 130
 VALIDATION_STEPS = 22
@@ -78,14 +82,7 @@ def train_model(model):
 
 def save_model(model):
     model_json = model.to_json()
-    with open('./model/model.json', 'w') as json_file:
+    with open(JSON_FILE, 'w') as json_file:
         json_file.write(model_json)
-    model.save_weights('./model/model.h5')
+    model.save_weights(HDF5_FILE)
     print("Model saved...! Ready to go.")
-
-
-my_model = create_model()
-my_model = init_model(my_model)
-print(my_model.summary())
-trained_model = train_model(my_model)
-save_model(trained_model)
