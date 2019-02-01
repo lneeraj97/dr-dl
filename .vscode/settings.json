@@ -1,4 +1,6 @@
 {
     "python.pythonPath": "/home/neeraj/miniconda3/envs/dl/bin/python",
-    "path-intellisense.showHiddenFiles": true
+    "path-intellisense.showHiddenFiles": true,
+    "path-intellisense.absolutePathToWorkspace": false,
+    "path-intellisense.autoSlashAfterDirectory": true
 }
