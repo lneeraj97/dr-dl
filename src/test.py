@@ -1,14 +1,17 @@
-from keras.models import model_from_json
+from keras.models import model_from_json, Sequential
 import cv2 as cv
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
 import os
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import ModelCheckpoint
+import keras
 
 TEST_DIR = './data/processed/test'
 JSON_PATH = './model/model.json'
-WEIGHTS_PATH = './model/model.h5'
-IMAGE_PATH = '/home/neeraj/Documents/dr-dl/data/interim/test/3/20060523_43174_0100_PP.tif'
+WEIGHTS_PATH = './model/weights.h5'
 
 
 def preprocess_image(image_path):
@@ -38,7 +41,6 @@ def load_model(JSON_PATH, WEIGHTS_PATH):
     loaded_model = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model)
-
     # Load weights from h5 file
     model.load_weights(WEIGHTS_PATH)
     print("Model Loaded from Disk")
@@ -46,19 +48,21 @@ def load_model(JSON_PATH, WEIGHTS_PATH):
 
 
 def compile_model(model):
-    model.compile(optimizer='adam', loss='binary_crossentropy',
+    model.compile(optimizer='adam', loss='categorical_crossentropy',
                   metrics=['accuracy'])
     print("Compiled successfully")
     return model
 
 
-def predict_image(JSON_PATH, WEIGHTS_PATH, image_path):
+def predict_image(JSON_PATH, WEIGHTS_PATH, TEST_DIR):
     model = load_model(JSON_PATH, WEIGHTS_PATH)
     model = compile_model(model)
-    image = preprocess_image(image_path)
-    result = model.predict(image)
-    print(result)
-    print(np.argmax(result, axis=1))
+    datagen = ImageDataGenerator(rescale=1./255)
+    generator = datagen.flow_from_directory(TEST_DIR, target_size=(
+        224, 224), batch_size=64, class_mode='categorical', shuffle=False)
+    results = model.evaluate_generator(generator, max_queue_size=10, steps=65,
+                                       workers=1, use_multiprocessing=False, verbose=1)
+    print(results)
 
 
-predict_image(JSON_PATH, WEIGHTS_PATH, IMAGE_PATH)
+predict_image(JSON_PATH, WEIGHTS_PATH, TEST_DIR)

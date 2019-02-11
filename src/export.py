@@ -3,12 +3,12 @@ from model.cnn import init_model
 from keras.utils import plot_model
 from contextlib import redirect_stdout
 
-TEXT_FILE = './model/model.txt'
+TEXT_FILE = './model/new_model.txt'
 IMAGE_FILE = './model/model.png'
 
 
 def to_text(model):
-    with open(TEXT_FILE, 'w') as my_file:
+    with open(TEXT_FILE, 'x') as my_file:
         with redirect_stdout(my_file):
             model.summary()
 

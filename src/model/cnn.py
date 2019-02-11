@@ -1,12 +1,13 @@
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
+from keras.models import Sequential, model_from_json
 from keras.callbacks import ModelCheckpoint
 
 TRAIN = 'data/processed/train'
 TEST = 'data/processed/test'
 JSON_FILE = './model/model.json'
-HDF5_FILE = './model/weights.h5'
+HDF5_FILE = './model/model.h5'
+WEIGHTS_FILE = './model/weights.h5'
 EPOCHS = 1000
 BATCH_SIZE = 64
 STEPS_PER_EPOCH = 65
@@ -67,7 +68,7 @@ def init_model(model):
 
 
 def train_model(model):
-    filepath = HDF5_FILE
+    filepath = WEIGHTS_FILE
     checkpoint = ModelCheckpoint(
         filepath, monitor='val_categorical_accuracy', verbose=1, save_best_only=True, mode='max')
     callbacks_list = [checkpoint]
@@ -87,9 +88,21 @@ def train_model(model):
     return model
 
 
+def load_model():
+    # Load model from JSON
+    json_file = open(JSON_FILE, 'r')
+    loaded_model = json_file.read()
+    json_file.close()
+    model = model_from_json(loaded_model)
+    # Load weights from h5 file
+    model.load_weights(WEIGHTS_FILE)
+    print("Model Loaded from Disk")
+    return model
+
+
 def save_model(model):
     model_json = model.to_json()
     with open(JSON_FILE, 'w') as json_file:
         json_file.write(model_json)
-    model.save_weights(HDF5_FILE)
-    print("Model saved...! Ready to go.")
+    # model.save_weights(HDF5_FILE)
+    # print("Model saved...! Ready to go.")
